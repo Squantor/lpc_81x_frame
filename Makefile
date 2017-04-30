@@ -59,6 +59,10 @@ release: export BIN_PATH := bin/release
 debug: export BUILD_PATH := build/debug
 debug: export BIN_PATH := bin/debug
 
+# export what target we are building, used for size logs
+release: export BUILD_TARGET := release
+debug: export BUILD_TARGET := debug
+
 # Set the object file names, with the source directory stripped
 # from the path, and the build path prepended in its place
 OBJECTS = $(SOURCES:%.$(SRC_EXT)=$(BUILD_PATH)/%.o)
@@ -99,11 +103,13 @@ all: $(BIN_PATH)/$(BIN_NAME).elf
 # create the executable
 $(BIN_PATH)/$(BIN_NAME).elf: $(OBJECTS)
 	$(CXX_PREFIX)$(CXX) $(LDFLAGS) $(OBJECTS) -Xlinker -Map="$(BIN_PATH)/$(BIN_NAME).map" -o $@ $(LIBS)
-	#$(CXX_PREFIX)$(AR) -r $@ $(OBJECTS)
+	# dump size and log to file
 	$(CXX_PREFIX)$(SIZE) $(BIN_PATH)/$(BIN_NAME).elf
+	date >> size$(BUILD_TARGET).log
+	$(CXX_PREFIX)$(SIZE) $(BIN_PATH)/$(BIN_NAME).elf >> size$(BUILD_TARGET).log
+	# create the various output files
 	$(CXX_PREFIX)$(OBJCOPY) -R .stack -O binary $(BIN_PATH)/$(BIN_NAME).elf $(BIN_PATH)/$(BIN_NAME).bin
 	$(CXX_PREFIX)$(OBJDUMP) -h -S "$(BIN_PATH)/$(BIN_NAME).elf" > "$(BIN_PATH)/$(BIN_NAME).lss"
-	cp $(BIN_PATH)/$(BIN_NAME).elf $(BIN_PATH)/$(BIN_NAME).axf
 
 # Add dependency files, if they exist
 -include $(DEPS)

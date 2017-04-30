@@ -3,4 +3,6 @@ bin/
 build/
 # ignore codeblocks layout files
 periph_blinky.layout
+# ignore logs
+*.log
 

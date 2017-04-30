@@ -3,7 +3,6 @@ BIN_NAME = periph_blinky
 MCU = lpc812
 SOURCES = src/cr_startup_lpc8xx.c src/sysinit.c src/main.c
 INCLUDES = -Iinc -I"lpc_chip_81x/inc/"
-# -I"/usr/local/lpcxpresso_8.2.0_647/lpcxpresso/tools/arm-none-eabi/include/"
 LDSCRIPT = -T"ld/nxp_$(MCU).ld"
 RLIBDIR = -L"lpc_chip_81x/bin/release"
 RLIBS = -llpc_chip_8xx

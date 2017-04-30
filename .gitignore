@@ -1,0 +1,6 @@
+# ignore build directories
+bin/
+build/
+# ignore codeblocks layout files
+periph_blinky.layout
+

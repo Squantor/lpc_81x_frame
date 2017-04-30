@@ -2,11 +2,12 @@
 BIN_NAME = periph_blinky
 MCU = lpc812
 SOURCES = src/cr_startup_lpc8xx.c src/sysinit.c src/main.c
-INCLUDES = -Iinc -I"../lpc_chip_81x/inc/" -I"/usr/local/lpcxpresso_8.2.0_647/lpcxpresso/tools/arm-none-eabi/include/"
+INCLUDES = -Iinc -I"lpc_chip_81x/inc/"
+# -I"/usr/local/lpcxpresso_8.2.0_647/lpcxpresso/tools/arm-none-eabi/include/"
 LDSCRIPT = -T"ld/nxp_$(MCU).ld"
-RLIBDIR = -L"../lpc_chip_81x/bin/release" 
+RLIBDIR = -L"lpc_chip_81x/bin/release"
 RLIBS = -llpc_chip_8xx
-DLIBDIR = -L"../lpc_chip_81x/bin/debug"  
+DLIBDIR = -L"lpc_chip_81x/bin/debug"
 DLIBS = -llpc_chip_8xx
 
 
@@ -30,8 +31,8 @@ RCOMPILE_FLAGS = $(DEFINES) $(RDEFINES) -Os
 DCOMPILE_FLAGS = $(DEFINES) $(DDEFINES) -g3 -O0
 
 LINK_FLAGS = -nostdlib -Xlinker --gc-sections -mcpu=cortex-m0 -mthumb
-RLINK_FLAGS = 
-DLINK_FLAGS = 
+RLINK_FLAGS =
+DLINK_FLAGS =
 
 # other settings
 SRC_EXT = c
@@ -67,11 +68,15 @@ DEPS = $(OBJECTS:.o=.d)
 # Standard, non-optimized release build
 .PHONY: release
 release: dirs
+	# make lpc_chip library if needed
+	$(MAKE) -C lpc_chip_81x release
 	$(MAKE) all --no-print-directory
 
 # Debug build for gdb debugging
 .PHONY: debug
 debug: dirs
+	# make lpc_chip library if needed
+	$(MAKE) -C lpc_chip_81x debug
 	$(MAKE) all --no-print-directory
 
 # Create the directories used in the build
@@ -108,5 +113,5 @@ $(BIN_PATH)/$(BIN_NAME).elf: $(OBJECTS)
 # dependency files to provide header dependencies
 # if the source file is in a subdir, create this subdir in the build dir
 $(BUILD_PATH)/%.o: ./%.$(SRC_EXT)
-	$(MKDIR) -p $(dir $@) 
+	$(MKDIR) -p $(dir $@)
 	$(CXX_PREFIX)$(CXX) $(CXXFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@

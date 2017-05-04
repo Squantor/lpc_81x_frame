@@ -50,6 +50,7 @@
 		</Compiler>
 		<Unit filename="Makefile" />
 		<Unit filename="README.md" />
+		<Unit filename="ld/nxp_lpc812.ld" />
 		<Unit filename="src/board.h" />
 		<Unit filename="src/breadboard.h" />
 		<Unit filename="src/cr_startup_lpc8xx.c">
@@ -67,9 +68,6 @@
 		</Unit>
 		<Unit filename="src/main.h" />
 		<Unit filename="src/sysinit.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/systick.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

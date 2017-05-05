@@ -76,11 +76,11 @@
 				<remote_debugging>
 					<options conn_type="2" serial_port="\dev\ttyBmpGdb" serial_baud="115200" extended_remote="1" />
 				</remote_debugging>
-				<remote_debugging target="debug">
-					<options conn_type="2" serial_port="/dev/ttyBmpGdb" serial_baud="115200" additional_cmds="monitor swdp_scan&#x0A;attach 1&#x0A;set mem inaccessible-by-default off&#x0A;set {int}0x40048000 = 2&#x0A;load bin/debug/periph_blinky.elf&#x0A;compare-sections&#x0A;start" extended_remote="1" />
-				</remote_debugging>
 				<remote_debugging target="release">
-					<options conn_type="2" serial_port="/dev/ttyBmpGdb" serial_baud="115200" additional_cmds="monitor swdp_scan&#x0A;attach 1&#x0A;set mem inaccessible-by-default off&#x0A;set {int}0x40048000 = 2&#x0A;load bin/release/periph_blinky.elf&#x0A;compare-sections&#x0A;start" extended_remote="1" />
+					<options conn_type="2" serial_port="/dev/ttyBmpGdb" serial_baud="115200" additional_cmds="monitor swdp_scan&#x0A;attach 1&#x0A;set mem inaccessible-by-default off&#x0A;load bin/release/periph_blinky.elf&#x0A;set {int}0x40048000 = 2&#x0A;compare-sections&#x0A;start" extended_remote="1" />
+				</remote_debugging>
+				<remote_debugging target="debug">
+					<options conn_type="2" serial_port="/dev/ttyBmpGdb" serial_baud="115200" additional_cmds="monitor swdp_scan&#x0A;attach 1&#x0A;set mem inaccessible-by-default off&#x0A;load bin/debug/periph_blinky.elf&#x0A;set {int}0x40048000 = 2&#x0A;compare-sections&#x0A;start" extended_remote="1" />
 				</remote_debugging>
 			</debugger>
 		</Extensions>

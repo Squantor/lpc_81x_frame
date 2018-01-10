@@ -103,12 +103,12 @@ all: $(BIN_PATH)/$(BIN_NAME).elf
 $(BIN_PATH)/$(BIN_NAME).elf: $(OBJECTS)
 	$(CXX_PREFIX)$(CXX) $(LDFLAGS) $(OBJECTS) -Xlinker -Map="$(BIN_PATH)/$(BIN_NAME).map" -o $@ $(LIBS)
 	# dump size and log to file
-	$(CXX_PREFIX)$(SIZE) $(BIN_PATH)/$(BIN_NAME).elf
+	$(CXX_PREFIX)$(SIZE) $@
 	date >> size$(BUILD_TARGET).log
-	$(CXX_PREFIX)$(SIZE) $(BIN_PATH)/$(BIN_NAME).elf >> size$(BUILD_TARGET).log
+	$(CXX_PREFIX)$(SIZE) $@ >> size$(BUILD_TARGET).log
 	# create the various output files
-	$(CXX_PREFIX)$(OBJCOPY) -R .stack -O binary $(BIN_PATH)/$(BIN_NAME).elf $(BIN_PATH)/$(BIN_NAME).bin
-	$(CXX_PREFIX)$(OBJDUMP) -h -S "$(BIN_PATH)/$(BIN_NAME).elf" > "$(BIN_PATH)/$(BIN_NAME).lss"
+	$(CXX_PREFIX)$(OBJCOPY) -R .stack -O binary $@ $(BIN_PATH)/$(BIN_NAME).bin
+	$(CXX_PREFIX)$(OBJDUMP) -h -S "$@" > "$(BIN_PATH)/$(BIN_NAME).lss"
 
 # Add dependency files, if they exist
 -include $(DEPS)
